@@ -11,14 +11,14 @@ public struct StatefulView<Source: LoadableObject, Content: View, ErrorView: Vie
     
     // MARK: - View
     
-    private let content: (Source.Output) -> Content
-    private let loadingView: () -> LoadingView
-    private let errorView: (Error) -> ErrorView
-    private let idleView: () -> IdleView
+    public let content: (Source.Output) -> Content
+    public let loadingView: () -> LoadingView
+    public let errorView: (Error) -> ErrorView
+    public let idleView: () -> IdleView
     
     // MARK: - Property
     
-    @ObservedObject var source: Source
+    @ObservedObject public var source: Source
     
     // MARK: - Init
     
