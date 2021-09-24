@@ -10,6 +10,6 @@ import Foundation
 public enum ViewState<Value> {
     case idle
     case loading
-    case error(Error)
+    case noContent
     case loaded(Value)
 }

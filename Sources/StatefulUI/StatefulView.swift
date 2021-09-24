@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-public struct StatefulView<Source: LoadableObject, Content: View, ErrorView: View, IdleView: View, LoadingView: View>: View {
+public struct StatefulView<Source: LoadableObject, Content: View, NoContentView: View, IdleView: View, LoadingView: View>: View {
     
     // MARK: - View
     
     public let content: (Source.Output) -> Content
     public let loadingView: () -> LoadingView
-    public let errorView: (Error) -> ErrorView
+    public let noContentView: () -> NoContentView
     public let idleView: () -> IdleView
     
     // MARK: - Property
@@ -26,13 +26,13 @@ public struct StatefulView<Source: LoadableObject, Content: View, ErrorView: Vie
         source: Source,
         @ViewBuilder content: @escaping (Source.Output) -> Content,
         @ViewBuilder loadingView: @escaping () -> LoadingView,
-        @ViewBuilder errorView: @escaping (Error) -> ErrorView,
+        @ViewBuilder noContentView: @escaping () -> NoContentView,
         @ViewBuilder idleView: @escaping () -> IdleView
     ) {
         self.source = source
         self.content = content
         self.loadingView = loadingView
-        self.errorView = errorView
+        self.noContentView = noContentView
         self.idleView = idleView
     }
     
@@ -45,8 +45,8 @@ public struct StatefulView<Source: LoadableObject, Content: View, ErrorView: Vie
                 idleView()
             case .loading:
                 loadingView()
-            case .error(let error):
-                errorView(error)
+            case .noContent:
+                noContentView()
             case .loaded(let value):
                 content(value)
             }
