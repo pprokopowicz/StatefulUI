@@ -11,7 +11,7 @@ public struct StatefulView<Source: LoadableObject, Content: View, NoContentView:
     
     // MARK: - View
     
-    public let content: (Source.Output) -> Content
+    public let content: (Source.ContentData) -> Content
     public let loadingView: () -> LoadingView
     public let noContentView: () -> NoContentView
     public let idleView: () -> IdleView
@@ -24,7 +24,7 @@ public struct StatefulView<Source: LoadableObject, Content: View, NoContentView:
     
     public init(
         source: Source,
-        @ViewBuilder content: @escaping (Source.Output) -> Content,
+        @ViewBuilder content: @escaping (Source.ContentData) -> Content,
         @ViewBuilder loadingView: @escaping () -> LoadingView,
         @ViewBuilder noContentView: @escaping () -> NoContentView,
         @ViewBuilder idleView: @escaping () -> IdleView

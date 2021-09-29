@@ -9,8 +9,8 @@ import Foundation
 
 public protocol LoadableObject: ObservableObject {
     
-    associatedtype Output
+    associatedtype ContentData
     
-    var state: ViewState<Output> { get }
+    var state: ViewState<ContentData> { get }
     
 }
