@@ -9,7 +9,12 @@ import Foundation
 
 public enum ViewState<Value> {
     case idle
-    case loading
+    case loading(LoadingMode<Value>)
     case noContent
     case loaded(Value)
+    
+    public enum LoadingMode<Value> {
+        case cover
+        case cross(Value)
+    }
 }
