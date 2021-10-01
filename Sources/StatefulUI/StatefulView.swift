@@ -18,7 +18,7 @@ public struct StatefulView<Source: LoadableObject, Content: View, NoContentView:
     
     // MARK: - Property
     
-    @ObservedObject public var source: Source
+    @ObservedObject private var source: Source
     
     // MARK: - Init
     
@@ -43,8 +43,17 @@ public struct StatefulView<Source: LoadableObject, Content: View, NoContentView:
             switch source.state {
             case .idle:
                 idleView()
-            case .loading:
-                loadingView()
+            case .loading(let mode):
+                switch mode {
+                case .cover:
+                    loadingView()
+                case .cross(let value):
+                    content(value)
+                        .blur(radius: 10)
+                        .overlay {
+                            loadingView()
+                        }
+                }
             case .noContent:
                 noContentView()
             case .loaded(let value):
