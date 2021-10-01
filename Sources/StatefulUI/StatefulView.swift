@@ -48,11 +48,11 @@ public struct StatefulView<Source: LoadableObject, Content: View, NoContentView:
                 case .cover:
                     loadingView()
                 case .cross(let value):
-                    ZStack {
-                        content(value)
-                            .blur(radius: 10)
-                        loadingView()
-                    }
+                    content(value)
+                        .blur(radius: 10)
+                        .overlay {
+                            loadingView()
+                        }
                 }
             case .noContent:
                 noContentView()
