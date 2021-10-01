@@ -53,6 +53,7 @@ public struct StatefulView<Source: LoadableObject, Content: View, NoContentView:
                             .blur(radius: 10)
                         loadingView()
                     }
+                }
             case .noContent:
                 noContentView()
             case .loaded(let value):
